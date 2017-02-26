@@ -1,31 +1,34 @@
 import java.util.Scanner;
 
-
 public class Main {
 
-	 public static void main(String[] args) {
-		 
-		 int l;
-		 int c;
-		 int nb;
+	public static void main(String[] args) {
 
-		 Scanner scan=new Scanner(System.in);
-		 
-		 System.out.println("Nombre de lignes :");
-		 l=scan.nextInt();
-		 System.out.println("Nombre de colonnes :");
-		 c=scan.nextInt();
-		 
-		 nb=c*l;
-		 
-		 Matrice matrice = new Matrice(l,c);
+		int l;
+		int c;
 
-		 matrice.remplirMatrice(nb);
-		 
-		 matrice.parcourirMatrice(l,c,nb);
-		 
-		 scan.close();
-		 
-		 
-	 }
+		//Euclide.euclideBezout(4, 7);
+
+		Scanner scan=new Scanner(System.in);
+
+		do {
+			System.out.println("Nombre de lignes :");
+			l=scan.nextInt();
+			System.out.println("Nombre de colonnes :");
+			c=scan.nextInt();
+		} while(l<1 ||c<1);
+		
+		Matrice matrice = new Matrice(l,c);
+
+		matrice.remplirMatrice();
+
+		System.out.println("Matrice:");
+		matrice.parcourirMatrice();
+		
+		System.out.println(matrice.toString());
+
+		scan.close();
+
+
+	}
 }
