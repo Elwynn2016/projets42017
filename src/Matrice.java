@@ -131,42 +131,12 @@ public class Matrice {
 
 		return a;
 	}
+	
 	/*
+	
 	public Matrice enflerMatrice(Matrice m2)
 	{ 
 		Matrice a = new Matrice(this.getLigne(), this.getColonne());
-		int x = 0;
-		int i,j;
-
-		for ( i=0; i<m2.getLigne(); i++){
-			for ( j=0; j<m2.getColonne(); j++)
-			{
-				a.tab[i][j]=m2.tab[i][j];
-
-			}
-		}
-
-		for ( i=m2.getLigne(); i<this.getLigne(); i++){
-			for ( j=m2.getColonne(); j<this.getColonne(); j++)
-			{
-				a.tab[i][j]=x;
-			}
-		}
-
-		i=this.getLigne()-1;
-		j=this.getColonne()-1;
-		a.tab[i][j]=1;
-
-		return a;
-
-
-	}
-	 */
-
-	/** TODO: methode mal définie **/
-	public Matrice enflerMatrice(Matrice m2)
-	{ 
-		//Matrice a = new Matrice(this.getLigne(), this.getColonne());
 		//int x = 0;
 
 		if(this.getLigne()<m2.getLigne() || this.getColonne()<m2.getColonne()) {
@@ -181,19 +151,71 @@ public class Matrice {
 		int i,j;
 		for ( i=0; i<m2.getLigne(); i++){
 			for ( j=0; j<m2.getColonne(); j++){
-				this.tab[i][j]=m2.tab[i][j];
+				this.tab[i][j]=a.tab[i][j];
 			}
 		}
 
 		for ( i=m2.getLigne(); i<this.getLigne(); i++){
 			for ( j=m2.getColonne(); j<this.getColonne(); j++){
-				m2.tab[i][i]=1;
+				a.tab[i][i]=1;
 			}
 		}
-		return m2;
+		return a;
 	}
-
-
+*/
+	/*
+	public Matrice enflerMatrice(Matrice m2)
+	{ 
+		Matrice a = new Matrice(this.getLigne(), this.getColonne());
+		//int x = 0;
+		int i,j;
+		
+		for ( i=0; i<m2.getLigne(); i++){
+			for ( j=0; j<m2.getColonne(); j++)
+			{
+				a.tab[i][j]=m2.tab[i][j];
+				
+			}
+		}
+		
+		for ( i=m2.getLigne(); i<this.getLigne(); i++){
+			for ( j=m2.getColonne(); j<this.getColonne(); j++)
+			{
+				a.tab[i][i]=1;
+			}
+		}
+		
+		return a;
+		
+		
+	}
+*/
+	/**
+	 *
+	 * @param p : taille de la matrice enflée
+	 */
+	public Matrice enflerMatrice(int j, int p)
+	{
+		if(!this.estCarree() || this.getLigne()!=2) {
+			System.out.println("Ce n'est pas une matrice 2x2");
+			return this;
+		}
+		
+		Matrice a = new Matrice(p, p);
+		j--; 
+		int i;
+		for(i= 0; i<a.getColonne(); i++){
+			if(a.tab[i][i] == 0)
+				a.tab[i][i]=1;
+		}
+		
+		a.getTab()[0][0] = this.getTab()[0][0];
+		a.getTab()[0][j] = this.getTab()[0][1];
+		a.getTab()[j][0] = this.getTab()[1][0];
+		a.getTab()[j][j] = this.getTab()[1][1];
+		return a;
+	}
+	
 	// multiplication
 	public Matrice multiplier(Matrice matrice){
 		Matrice a = new Matrice(this.getLigne(), this.getColonne());
