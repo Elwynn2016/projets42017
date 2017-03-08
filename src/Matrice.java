@@ -196,8 +196,8 @@ public class Matrice {
 	 */
 	public Matrice enflerMatrice(int j, int p)
 	{
-		if(!this.estCarree() || this.getLigne()!=2) {
-			System.out.println("Ce n'est pas une matrice 2x2");
+		if(!this.estCarree()) {//|| this.getLigne()!=2) {
+			System.out.println("Ce n'est pas une matrice 2x2? ");
 			return this;
 		}
 		

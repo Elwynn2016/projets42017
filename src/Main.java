@@ -54,26 +54,32 @@ public class Main {
 
 
 */
-		Matrice matrice = new Matrice(3,3);
+		Matrice matrice = new Matrice(1,1);
 		matrice.remplirMatrice();
 		System.out.println("Matrice");
 		matrice.parcourirMatrice();
-		
-		Matrice m = new Matrice(matrice);
-		System.out.println("M avant");
-		m.parcourirMatrice();
-		m.toMatriceVide();
-		System.out.println("M vidée");
-		m.parcourirMatrice();
-		
-		Matrice m2 = new Matrice(matrice);
-		System.out.println("M2 avant");
-		m2.parcourirMatrice();
-		m.toMatriceId();
-		System.out.println("M2 Id");
-		m.parcourirMatrice();
-		
-		
+//		
+//		Matrice m = new Matrice(matrice);
+//		System.out.println("M avant");
+//		m.parcourirMatrice();
+//		m.toMatriceVide();
+//		System.out.println("M vidée");
+//		m.parcourirMatrice();
+//		
+//		Matrice m2 = new Matrice(matrice);
+//		System.out.println("M2 avant");
+//		m2.parcourirMatrice();
+//		m.toMatriceId();
+//		System.out.println("M2 Id");
+//		m.parcourirMatrice();
+//		
+		Matrice m0 = new Matrice(2,2);
+		m0.remplirMatrice();
+		System.out.println("mini:");
+		m0.parcourirMatrice();
+		System.out.println("enflée:");
+		m0 = m0.enflerMatrice(3,4);
+		m0.parcourirMatrice();
 		
 		
 		//si taille m1<m2   on fait enfler matrice avant de la multiplier
