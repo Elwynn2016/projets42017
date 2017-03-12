@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+@SuppressWarnings("unused")
 public class Main {
 
 	public static void main(String[] args) {
@@ -52,67 +53,97 @@ public class Main {
 		System.out.println("\n M1 enflée");
 		matrice.parcourirMatrice();
 
-
+		Matrice aaa = new Matrice(1,3);
+		aaa.remplirMatrice();
+		aaa.parcourirMatrice();
+		
+		Matrice bbb = new Matrice(3,2);
+		bbb.remplirMatrice();
+		bbb.parcourirMatrice();
+		
+		bbb.multiplier(aaa);
+		
+		System.exit(0);
 */
-		Matrice matrice = new Matrice(1,1);
-		matrice.remplirMatrice();
+		
+		Matrice m1 = new Matrice(2,3);
+		m1.remplirMatrice();
 		System.out.println("Matrice");
-		matrice.parcourirMatrice();
+		m1.parcourirMatrice();
+	
+		Matrice m2 = new Matrice(2,2);
+		m2.toMatriceId();
+//		m2.remplirMatrice();
+//		System.out.println("M2");
+//		m2.parcourirMatrice();
 //		
-//		Matrice m = new Matrice(matrice);
+//		/****MULTIPLICATION****/
+//		Matrice m3;
+//		m3 = m2.multiplier(m1);
+//		System.out.println("M3");
+//		m3.parcourirMatrice();
+		
+		/****REDUCTION****/
+		m2 = m1.reduction1(m1);
+		System.out.println("Matrice réduite:");
+		m2.parcourirMatrice();
+//		
+//		/****MATRICE ID/VIDE****/
+//		Matrice m = new Matrice(m1);
 //		System.out.println("M avant");
 //		m.parcourirMatrice();
 //		m.toMatriceVide();
 //		System.out.println("M vidée");
 //		m.parcourirMatrice();
-//		
+
 //		Matrice m2 = new Matrice(matrice);
 //		System.out.println("M2 avant");
 //		m2.parcourirMatrice();
 //		m.toMatriceId();
 //		System.out.println("M2 Id");
 //		m.parcourirMatrice();
+		
+//		/****MAT ENFLEE****/		
+//		Matrice m0 = new Matrice(2,2);
+//		m0.remplirMatrice();
+//		System.out.println("mini:");
+//		m0.parcourirMatrice();
+//		System.out.println("enflée:");
+//		m0 = m0.enflerMatrice(1,3,4);
+//		m0.parcourirMatrice();
 //		
-		Matrice m0 = new Matrice(2,2);
-		m0.remplirMatrice();
-		System.out.println("mini:");
-		m0.parcourirMatrice();
-		System.out.println("enflée:");
-		m0 = m0.enflerMatrice(3,4);
-		m0.parcourirMatrice();
-		
-		
-		//si taille m1<m2   on fait enfler matrice avant de la multiplier
+//		
+//		//si taille m1<m2   on fait enfler matrice avant de la multiplier
 
-		/*
-		 * Test sur le changement de signe d'une ligne
-		 */
-		System.out.println("Opposition d'une ligne");
-		int b = matrice.getLigneMatrice();
-		matrice.opposeLigne(b);
-
-		/*
-		 * Fin du test
-		 */
-
-		/*
-		 * Test transposition de ligne 
-		 */
-		matrice.parcourirMatrice();
-		System.out.println("Quelle ligne voulez vous échanger avec la premiere ");
-		int i;
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
-		do{
-			i = sc.nextInt();
-		}while(i < 2 || i > matrice.getLigne());
-		
-		
-		matrice.transposeLigne(i);
-		matrice.parcourirMatrice();
-
-		/*
-		 * Fin du Test
-		 */
+//		/*
+//		 * Test sur le changement de signe d'une ligne
+//		 */
+//		System.out.println("Opposition d'une ligne");
+//		int b = matrice.getLigneMatrice();
+//		matrice.opposeLigne(b);
+//
+//		/*
+//		 * Fin du test
+//		 */
+//
+//		/*
+//		 * Test transposition de ligne 
+//		 */
+//		matrice.parcourirMatrice();
+//		System.out.println("Quelle ligne voulez vous échanger avec la premiere ");
+//		int i;
+//		@SuppressWarnings("resource")
+//		Scanner sc = new Scanner(System.in);
+//		do{
+//			i = sc.nextInt();
+//		}while(i < 2 || i > matrice.getLigne());
+//		
+//		
+//		matrice.transposeLigne(i);
+//		matrice.parcourirMatrice();
+//
+//		/*
+//		 * Fin du Test
+//		 */
 	}
 }
