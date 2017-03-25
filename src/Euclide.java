@@ -58,7 +58,7 @@ public class Euclide {
 	
 	
 	public static void main(String[] args) {
-		euclideBezout(-13,4);
+		euclideBezout(4,7);
 	}
 
 }

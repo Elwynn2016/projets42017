@@ -427,40 +427,15 @@ public class Matrice {
 	}
 
 	public Matrice reduction2(Matrice A){
-		Matrice B = new Matrice (A);
+		Matrice B = new Matrice (A); 
+		int i;
 		int n = A.getLigne();
 
-		
 		if(B.tab[0][0]!=0){
-			
-			for(int j=0; j<B.getLigne();j++){
-				while(B.tab[0][j]!=0 && B.tab[0][0]%B.tab[0][j] != 0) {
-					int i=1;
-					while(i<=B.getLigne() && B.tab[0][0]% B.tab[i][0] == 0 ){
-						i = i+1;
-					}
-					System.out.println("i = "+i);
-					int duv[]=euclideBezout(B.tab[0][0],B.tab[i][1]);
-					Matrice P = new Matrice(2,2);
-					P.tab[0][0] = duv[1];
-					P.tab[0][1] = duv[2];
-					P.tab[1][0] = -B.tab[0][j]/duv[0];
-					P.tab[1][1] = B.tab[0][0]/duv[0];
-					
-					System.out.println("P :");
-					P.parcourirMatrice();
-					P = P.enflerMatrice(1,i,n);
-					System.out.println("P enflée:");
-					P.parcourirMatrice();
-					System.out.println("Okjukhghyfgd");
-					
-					B = P.multiplier(B);
-					System.out.println("B dans reduction 2 avant reduc 1  " );
-					B.parcourirMatrice();
-					B = reduction1(B);
-				}
-				for(int i=2;i<n;i++){
-					B.operationLigne();
+			while(divR2(B)) {
+				i=1;
+				while(B.tab[0][0] % B.tab[i][0] == 0){
+					i = i+1;
 				}
 				int duv[]=euclideBezout(B.tab[0][0],B.tab[0][0]);
 
@@ -494,10 +469,9 @@ public class Matrice {
 
 		int n = A.getLigne();
 		int p = A.getColonne();
-		if(B.tab[0][0] != 0){
-			
-			for(int a=0; a)
-			while(B.tab[0][0] % B == 0 //????????){
+
+		if(B.tab[1][1] != 0){
+			while(B.tab[1][1] //????????){
 				int i =2;
 				while(B.tab[1][1]) | //?????){
 					i = i+1;
