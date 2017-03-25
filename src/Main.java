@@ -67,6 +67,7 @@ public class Main {
 */
 		
 		Matrice m1 = new Matrice(2,3);
+
 		m1.remplirMatrice();
 		System.out.println("Matrice");
 		m1.parcourirMatrice();
@@ -76,6 +77,7 @@ public class Main {
 //		m2.remplirMatrice();
 //		System.out.println("M2");
 //		m2.parcourirMatrice();
+
 //		
 //		/****MULTIPLICATION****/
 //		Matrice m3;
@@ -111,6 +113,7 @@ public class Main {
 //		System.out.println("enflée:");
 //		m0 = m0.enflerMatrice(1,3,4);
 //		m0.parcourirMatrice();
+
 //		
 //		
 //		//si taille m1<m2   on fait enfler matrice avant de la multiplier

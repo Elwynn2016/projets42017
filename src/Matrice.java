@@ -37,6 +37,19 @@ public class Matrice {
 		}
 	}*/
 
+	/*public Matrice(int[][] t) {
+		if (t.length == 4) {
+			this.ligne = 2;
+			this.colonne = 2;
+			this.tab = new int[ligne][colonne];
+			for(int i=0; i<2; i++) {
+				for(int j=0; j<2; j++) {
+					this.tab[i][j] = t[i][j];
+				}
+			}
+		}
+	}*/
+
 	public void toMatriceId(){
 		if(!estCarree()) {
 			System.out.println("La matrice doit être carrée.");
@@ -207,6 +220,12 @@ public class Matrice {
 	 * TODO
 	 * @param n : taille de la matrice enflée
 	 */
+
+	/**
+	 * TODO
+	 * @param n : taille de la matrice enflée
+	 */
+
 	public Matrice enflerMatrice(int k, int l, int n)
 	{
 		if(!this.estCarree() || this.getLigne()!=2) {
@@ -245,13 +264,49 @@ public class Matrice {
 		return a;
 	}
 	 */
+	public Matrice multiplier(Matrice MA, Matrice MB)
+	{
+		int l,c;
+		int value =0;
+		if(MA.getColonne() != MB.getLigne()){
+			System.out.println("Matrice de taille différente");
+			return MA;
+		}
+		else{
+			l = MA.getLigne();
+			c = MB.getColonne();
+
+			Matrice a = new Matrice(l, c);
+
+			l= 0;
+			for(int i =0; i< MA.getLigne(); i++){
+				c=0;
+				for(int k = 0; k<MB.getColonne(); k++){
+					value =0;
+
+					for(int j=0; j<MA.getColonne(); j++){
+						value += MA.tab[i][j] * MB.tab[j][k];
+
+					}
+					a.tab[l][c] = value;
+					c++;
+
+				}
+				l++;
+			}
+
+
+			return a;
+		}
+	}
+
 	public Matrice multiplier(Matrice MB)
 	{
 		if(this.getColonne() != MB.getLigne()){
 			System.out.println("Matrice de taille différente");
 			return this;
 		}
-		
+
 		int value = 0;
 
 		Matrice A = new Matrice(this.getLigne(), MB.getColonne());
@@ -372,8 +427,6 @@ public class Matrice {
 	public Matrice reduction1(Matrice A){
 		Matrice B = new Matrice (A);
 
-
-
 		int n = A.getLigne();
 		int p = A.getColonne();
 
@@ -398,11 +451,12 @@ public class Matrice {
 				System.out.println("duv:" + duv[0]+" "+duv[1]+" "+duv[2]);
 				if(duv[0]!=0){
 					Matrice Q = new Matrice(2,2);
+
 					Q.tab[0][0] = duv[1];
 					Q.tab[0][1] = -B.tab[0][j]/duv[0];
 					Q.tab[1][0] = duv[2];
 					Q.tab[1][1] = B.tab[0][0]/duv[0];
-					
+
 					System.out.println("Q:");
 					Q.parcourirMatrice();
 					Q = Q.enflerMatrice(1,j+1,p);
@@ -411,6 +465,7 @@ public class Matrice {
 					B = B.multiplier(Q);
 					System.out.println("B Multiplié : ");
 					B.parcourirMatrice();
+
 				}
 			}		
 		}
@@ -422,6 +477,7 @@ public class Matrice {
 		boolean divisible = false;
 		for(int j = 0; j<B.getColonne(); j++){
 			divisible = divisible && (B.tab[0][0]%B.tab[0][j]==0);
+
 		}
 		return divisible;
 	}
@@ -430,9 +486,9 @@ public class Matrice {
 		Matrice B = new Matrice (A);
 		int n = A.getLigne();
 
-		
+
 		if(B.tab[0][0]!=0){
-			
+
 			for(int j=0; j<B.getLigne();j++){
 				while(B.tab[0][j]!=0 && B.tab[0][0]%B.tab[0][j] != 0) {
 					int i=1;
@@ -446,14 +502,14 @@ public class Matrice {
 					P.tab[0][1] = duv[2];
 					P.tab[1][0] = -B.tab[0][j]/duv[0];
 					P.tab[1][1] = B.tab[0][0]/duv[0];
-					
+
 					System.out.println("P :");
 					P.parcourirMatrice();
 					P = P.enflerMatrice(1,i,n);
 					System.out.println("P enflée:");
 					P.parcourirMatrice();
 					System.out.println("Okjukhghyfgd");
-					
+
 					B = P.multiplier(B);
 					System.out.println("B dans reduction 2 avant reduc 1  " );
 					B.parcourirMatrice();
@@ -469,7 +525,7 @@ public class Matrice {
 				P.tab[0][1] = -B.tab[0][j]/duv[0];
 				P.tab[1][0] = duv[2];
 				P.tab[1][1] = B.tab[0][j]/duv[0];
-						B = P.multiplier(B);
+				B = P.multiplier(B);
 				B = reduction1(B);
 			}
 			for(int j=1;j<n;j++){
@@ -495,7 +551,7 @@ public class Matrice {
 		int n = A.getLigne();
 		int p = A.getColonne();
 		if(B.tab[0][0] != 0){
-			
+
 			for(int a=0; a)
 			while(B.tab[0][0] % B == 0 //????????){
 				int i =2;
