@@ -66,9 +66,11 @@ public class Main {
 		System.exit(0);
 */
 		
-		Matrice m1 = new Matrice(2,3);
-
-		m1.remplirMatrice();
+		//Matrice m1 = new Matrice(2,3);
+		//m1.remplirMatrice();
+		
+		int t[][] = {{16,12,8},{34,20,59}};
+		Matrice m1 = new Matrice(t);
 		System.out.println("Matrice");
 		m1.parcourirMatrice();
 	
@@ -86,7 +88,7 @@ public class Main {
 //		m3.parcourirMatrice();
 		
 		/****REDUCTION****/
-		m2 = m1.reduction1(m1);
+		m2 = m1.reduction2(m1);
 		System.out.println("Matrice réduite:");
 		m2.parcourirMatrice();
 //		

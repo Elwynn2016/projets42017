@@ -14,41 +14,15 @@ public class Matrice {
 	}
 
 	public Matrice(Matrice m) {
-		this.ligne = m.getLigne();
-		this.colonne = m.getColonne();
-		this.tab = new int[ligne][colonne];
-		for (int i=0; i<this.getLigne(); i++ ){
-			for (int j=0; j<this.getColonne(); j++) {
-				this.tab[i][j] = m.tab[i][j];
-			}
-		}
+		this.setLigne(m.getLigne());
+		this.setColonne(m.getColonne());
+		this.setTab(m.getTab());
 	}
 
-	/*public Matrice(int[][] t) {
-		if (t.length == 4) {
-			this.ligne = 2;
-			this.colonne = 2;
-			this.tab = new int[ligne][colonne];
-			for(int i=0; i<2; i++) {
-				for(int j=0; j<2; j++) {
-					this.tab[i][j] = t[i][j];
-				}
-			}
-		}
-	}*/
-
-	/*public Matrice(int[][] t) {
-		if (t.length == 4) {
-			this.ligne = 2;
-			this.colonne = 2;
-			this.tab = new int[ligne][colonne];
-			for(int i=0; i<2; i++) {
-				for(int j=0; j<2; j++) {
-					this.tab[i][j] = t[i][j];
-				}
-			}
-		}
-	}*/
+	public Matrice(int[][] t) {
+		this(t.length,t[0].length);
+		this.setTab(t);
+	}
 
 	public void toMatriceId(){
 		if(!estCarree()) {
@@ -114,7 +88,12 @@ public class Matrice {
 	}
 
 	public void setTab(int t[][]){
-		this.tab = t;
+		this.tab = new int[t.length][t[0].length];
+		for (int i=0; i<t.length; i++ ){
+			for (int j=0; j<t[0].length; j++) {
+				this.tab[i][j] = t[i][j];
+			}
+		}
 	}
 	public static int [] euclideBezout(int a, int b) {
 		int x = Math.abs(a);
@@ -158,69 +137,6 @@ public class Matrice {
 		return a;
 	}
 
-	/*
-
-	public Matrice enflerMatrice(Matrice m2)
-	{ 
-		Matrice a = new Matrice(this.getLigne(), this.getColonne());
-		//int x = 0;
-
-		if(this.getLigne()<m2.getLigne() || this.getColonne()<m2.getColonne()) {
-			System.out.println("Matrice trop grande pour être enflée.");
-			return m2;
-		}
-		else if(!estCarree() || !m2.estCarree()) {
-			System.out.println("Les matrices doivent être carrée.");
-			return m2;
-		}
-
-		int i,j;
-		for ( i=0; i<m2.getLigne(); i++){
-			for ( j=0; j<m2.getColonne(); j++){
-				this.tab[i][j]=a.tab[i][j];
-			}
-		}
-
-		for ( i=m2.getLigne(); i<this.getLigne(); i++){
-			for ( j=m2.getColonne(); j<this.getColonne(); j++){
-				a.tab[i][i]=1;
-			}
-		}
-		return a;
-	}
-	 */
-	/*
-	public Matrice enflerMatrice(Matrice m2)
-	{ 
-		Matrice a = new Matrice(this.getLigne(), this.getColonne());
-		//int x = 0;
-		int i,j;
-
-		for ( i=0; i<m2.getLigne(); i++){
-			for ( j=0; j<m2.getColonne(); j++)
-			{
-				a.tab[i][j]=m2.tab[i][j];
-
-			}
-		}
-
-		for ( i=m2.getLigne(); i<this.getLigne(); i++){
-			for ( j=m2.getColonne(); j<this.getColonne(); j++)
-			{
-				a.tab[i][i]=1;
-			}
-		}
-
-		return a;
-
-
-	}
-	 */
-	/**
-	 * TODO
-	 * @param n : taille de la matrice enflée
-	 */
-
 	/**
 	 * TODO
 	 * @param n : taille de la matrice enflée
@@ -229,13 +145,11 @@ public class Matrice {
 	public Matrice enflerMatrice(int k, int l, int n)
 	{
 		if(!this.estCarree() || this.getLigne()!=2) {
-			System.out.println("Ce n'est pas une matrice 2x2? ");
+			System.out.println("Ce n'est pas une matrice 2x2");
 			return this;
 		}
 
-		Matrice a = new Matrice(n, n);
-		k--;
-		l--; 
+		Matrice a = new Matrice(n, n); 
 
 		a.toMatriceId();
 
@@ -322,31 +236,15 @@ public class Matrice {
 		return A;
 	}
 
-	public int getLigneMatrice(){         /** TODO Ligne en paraletre **/
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
+	public int getLigneMatrice(int i){ 
 
-		/*	
-		 * Si la matrice n'a qu'une ligne pas besoin de choisir une ligne
-		 */
+		//Si la matrice n'a qu'une ligne pas besoin de choisir une ligne
+		if(this.getLigne() == 1) return 1;
 
-		int i=1;
-		if(this.getLigne() != 1){
+		//L'utilisateur  ne choisi pas entre la ligne 0 et n-1
+		if(i<0) return 1;
+		if(i>this.getLigne()) return this.getLigne()-1;
 
-			/*
-			 * affiche la matrice ainsi que le nombre de ligne entre 1 et n, donc l'utilisateur 
-			 * ne choisi pas entre la ligne 0 et n-1
-			 */
-
-			System.out.println("Quelle ligne voulez vous recuperer" );
-			this.parcourirMatrice();
-
-			System.out.println("entre " + 1 + " et "+ this.getLigne() +"?");
-			do{	
-				i = sc.nextInt();
-			}while(i < 1 || i > this.getLigne() );
-		}
-		i--;
 		return i;
 	}
 
@@ -358,17 +256,18 @@ public class Matrice {
 	}
 
 
-	/** EDIT: choix de la ligne par parametre **/
-	public void transposeLigne(int i){
-		if(this.ligne <= 1){
+	public void echangeLigne(int i){
+
+		if(this.ligne == 1){
 			System.out.println("Il n'y a qu'une seule ligne");
 			return;
 		}
-		else if(i<2 || i > this.ligne){
+
+		else if(i<0 || i > this.ligne-1){
 			System.out.println("La ligne n'est pas dans la matrice");
+			return;
 		}
 
-		i--;
 		int tmp;
 
 		for(int j = 0; j < this.getColonne(); j++){
@@ -380,42 +279,24 @@ public class Matrice {
 	}
 
 	public int[] multiplierValeurLigne(int ligne, int x){
+
+		ligne = this.getLigneMatrice(ligne);
 		int A[] = this.tab[ligne];
-		for(int i = 0; i < this.getColonne(); i++){
-			A[i] = A[i] * x;
+		for(int j = 0; j < this.getColonne(); j++){
+			A[j] = A[j] * x;
 		}
 		return A;
 	}
 
-	public void operationLigne(){  /** TODO mettre ligne quon veut inverser multiplier par paramètre **/
-		System.out.println("Addition de ligne: \n");
-		//int x = 1;
-		int y = 1;
-		@SuppressWarnings("resource")
-		Scanner sc = new Scanner(System.in);
+	// Effectue L1 <- L1 + yL2
+	public void operationLigne(int l1, int l2, int y){
 
-		int a = this.getLigneMatrice();
+		int a = this.getLigneMatrice(l1);
+		int b = this.getLigneMatrice(l2);
 
-		/*
-		 * 	System.out.println("Par quelle valeur multipliÃ© la premiere ligne"  );
-		 *
-		 *	do{
-		 *		x = sc.nextInt();
-		 *	}while(x != 0);
-		 *
-		 *
-		 *
-		 * 	multiplierValeurLigne(a, x);
-		 */
+		if(y == 0) return;
 
-		int b = this.getLigneMatrice();
-		System.out.println("Par quelle valeur multipliÃ© la deuxieme ligne sÃ©lectionnÃ©"  );
-
-		do{
-			y = sc.nextInt();
-		}while(y == 0);
 		int yLj[] = this.multiplierValeurLigne(b, y);
-
 
 		for(int i =0; i < this.getColonne(); i++){
 			this.tab[a][i] = this.tab[a][i] + yLj[i];
@@ -430,28 +311,26 @@ public class Matrice {
 		int n = A.getLigne();
 		int p = A.getColonne();
 
-		int i = 1;
+		int i = 0;
 
 		while(i<B.getLigne() && B.tab[i][0] == 0) i += 1;
 
-		System.out.println("i="+i);
-
-		if(i<=n) {
-			if(i>=2){
-				B.transposeLigne(i);
+		if(i<n) {
+			if(i>=1){
+				B.echangeLigne(i);
 			}
 			if(B.tab[0][0]<0){
-				B.opposeLigne(1);
+				B.opposeLigne(0);
 			}
-			System.out.println("LIGNE TRANSPOSEE");
+			
 			for(int j=1; j<p;j++){
 				int duv[]= euclideBezout(B.tab[0][0],B.tab[0][j]);
-				System.out.println("b00:" + B.tab[0][0]);
-				System.out.println("b0j:" + B.tab[0][j]);
-				System.out.println("duv:" + duv[0]+" "+duv[1]+" "+duv[2]);
+//				System.out.println("b00:" + B.tab[0][0]);
+//				System.out.println("b0j:" + B.tab[0][j]);
+//				System.out.println("duv:" + duv[0]+" "+duv[1]+" "+duv[2]);
 				if(duv[0]!=0){
+					
 					Matrice Q = new Matrice(2,2);
-
 					Q.tab[0][0] = duv[1];
 					Q.tab[0][1] = -B.tab[0][j]/duv[0];
 					Q.tab[1][0] = duv[2];
@@ -459,11 +338,13 @@ public class Matrice {
 
 					System.out.println("Q:");
 					Q.parcourirMatrice();
-					Q = Q.enflerMatrice(1,j+1,p);
+					Q = Q.enflerMatrice(0,j,p);
 					System.out.println("Q enflée:");
 					Q.parcourirMatrice();
+					System.out.println("B avant multiplication : ");
+					B.parcourirMatrice();
 					B = B.multiplier(Q);
-					System.out.println("B Multiplié : ");
+					System.out.println("B Multipliée : ");
 					B.parcourirMatrice();
 
 				}
@@ -472,12 +353,11 @@ public class Matrice {
 		return B;
 	}
 
-	//Retourne B1,1 | C1(B)
-	public boolean divR2(Matrice B){
-		boolean divisible = false;
-		for(int j = 0; j<B.getColonne(); j++){
-			divisible = divisible && (B.tab[0][0]%B.tab[0][j]==0);
-
+	//Retourne true si B1,1 | C1(B)
+	public boolean diviseC1(){
+		boolean divisible = true;
+		for(int i = 0; i<this.getLigne(); i++){
+			divisible = divisible && this.tab[i][0]%this.tab[0][0]==0;
 		}
 		return divisible;
 	}
@@ -486,26 +366,29 @@ public class Matrice {
 		Matrice B = new Matrice (A);
 		int n = A.getLigne();
 
-
 		if(B.tab[0][0]!=0){
-
-			for(int j=0; j<B.getLigne();j++){
-				while(B.tab[0][j]!=0 && B.tab[0][0]%B.tab[0][j] != 0) {
+			//for(int j=0; j<B.getLigne();j++){
+				//while(B.tab[0][j]!=0 && B.tab[0][0]%B.tab[0][j] != 0) {
+			
+				//B1 ne divise pas toute la colonne 1
+				while(!B.diviseC1()){
 					int i=1;
-					while(i<=B.getLigne() && B.tab[0][0]% B.tab[i][0] == 0 ){
+					while(B.tab[i][0]% B.tab[0][0] == 0 ){
+						System.out.println("POPOPOP "+ B.tab[i][0]);
 						i = i+1;
 					}
+					System.out.println("OH "+B.tab[i][0]);
 					System.out.println("i = "+i);
-					int duv[]=euclideBezout(B.tab[0][0],B.tab[i][1]);
+					int duv[]=euclideBezout(B.tab[0][0],B.tab[i][0]);
 					Matrice P = new Matrice(2,2);
 					P.tab[0][0] = duv[1];
 					P.tab[0][1] = duv[2];
-					P.tab[1][0] = -B.tab[0][j]/duv[0];
+					P.tab[1][0] = -B.tab[i][0]/duv[0];
 					P.tab[1][1] = B.tab[0][0]/duv[0];
 
 					System.out.println("P :");
 					P.parcourirMatrice();
-					P = P.enflerMatrice(1,i,n);
+					P = P.enflerMatrice(0,i,n);
 					System.out.println("P enflée:");
 					P.parcourirMatrice();
 					System.out.println("Okjukhghyfgd");
@@ -514,48 +397,41 @@ public class Matrice {
 					System.out.println("B dans reduction 2 avant reduc 1  " );
 					B.parcourirMatrice();
 					B = reduction1(B);
+					System.out.println("B dans reduction 2 après reduc 1  " );
+					B.parcourirMatrice();
 				}
-				for(int i=2;i<n;i++){
-					B.operationLigne();
+				for(int i=1;i<n;i++){
+					B.operationLigne(i,0,-B.tab[i][0]/B.tab[0][0]);
 				}
-				int duv[]=euclideBezout(B.tab[0][0],B.tab[0][0]);
 
-				Matrice P = new Matrice(2,2);
-				P.tab[0][0] = duv[1];
-				P.tab[0][1] = -B.tab[0][j]/duv[0];
-				P.tab[1][0] = duv[2];
-				P.tab[1][1] = B.tab[0][j]/duv[0];
-				B = P.multiplier(B);
-				B = reduction1(B);
-			}
-			for(int j=1;j<n;j++){
-				////???
-
-			}
+			//}
 		}
 		return B;
 	}
 	/*
-	public Matrice reduction3(Matrice A){
-		Matrice B = new Matrice (A.getLigne(),A.getColonne()); 
-		int x,j;
-		for ( x=0; x<A.getLigne(); x++){
-			for ( j=0; j<A.getColonne(); j++)
-			{
-				B.tab[x][j]=A.tab[x][j];
-
+	//Retourne true si B1,1 | B
+		public boolean diviseB(){
+			boolean divisible = true;
+			for(int i = 0; i < this.getLigne(); i++){
+				for(int j = 0; j < this.getColonne(); j++){
+					divisible = divisible && this.tab[i][0]%this.tab[0][0]==0;
+				}
 			}
+			return divisible;
 		}
-
+	
+	public Matrice reduction3(Matrice A){
+		Matrice B = new Matrice(A); 
 
 		int n = A.getLigne();
 		int p = A.getColonne();
+		
 		if(B.tab[0][0] != 0){
 
 			for(int a=0; a)
-			while(B.tab[0][0] % B == 0 //????????){
+			while(B.tab[0][0] % B == 0 ){
 				int i =2;
-				while(B.tab[1][1]) | //?????){
+				while(B.tab[1][1]) ){
 					i = i+1;
 				}
 
@@ -571,8 +447,7 @@ public class Matrice {
 
 		return B;
 	}
-	 */
-
+	*/
 
 
 }
