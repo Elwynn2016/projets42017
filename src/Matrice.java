@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 
 public class Matrice {
@@ -299,8 +300,6 @@ public class Matrice {
 
 		while(i<B.getLigne() && B.tab[i][0] == 0) i += 1;
 		
-		System.out.println("There");
-		B.parcourirMatrice();
 		if(i<n) {
 			if(i>=1){
 				B.echangeLigne(i);
@@ -351,7 +350,6 @@ public class Matrice {
 	}
 
 	public Matrice reduction2(Matrice A){
-		System.out.println("HEEEEEEEY");
 		Matrice B = new Matrice (A);
 		int n = A.getLigne();
 
@@ -364,11 +362,8 @@ public class Matrice {
 			while(!B.diviseColonne(0)){
 				int i=1;
 				while(B.tab[i][0]% B.tab[0][0] == 0 ){
-					System.out.println("POPOPOP "+ B.tab[i][0]);
 					i = i+1;
 				}
-				System.out.println("OH "+B.tab[i][0]);
-				System.out.println("i = "+i);
 				int duv[]=euclideBezout(B.tab[0][0],B.tab[i][0]);
 				Matrice P = new Matrice(2,2);
 				P.tab[0][0] = duv[1];
@@ -381,7 +376,6 @@ public class Matrice {
 				P = P.enflerMatrice(0,i,n);
 				System.out.println("P enflée:");
 				P.parcourirMatrice();
-				System.out.println("Okjukhghyfgd");
 
 				B = P.multiplier(B);
 				System.out.println("B dans reduction 2 avant reduc 1  " );
@@ -393,7 +387,6 @@ public class Matrice {
 			for(int i=1;i<n;i++){
 				B.operationLigne(i,0,-B.tab[i][0]/B.tab[0][0]);
 			}
-			System.out.println("QDSLFJNDWJFDSKLMJFMSLDKFGJQLMSDFJQDSLMKFJQSDMLKFJQSLMFK");
 			B.parcourirMatrice();
 			
 
@@ -438,11 +431,11 @@ public class Matrice {
 				B = reduction1(B);
 				
 				//Fais une pause d'une seconde à chaque itération
-				try {
+				/*try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
-				}
+				}*/
 				
 				System.out.println("PAUSE");
 				B.parcourirMatrice();
@@ -450,6 +443,50 @@ public class Matrice {
 			}
 		}
 		return B;
+	}
+	
+	public boolean estVide(){
+		for(int i = 0; i<this.getLigne(); i++){
+			for(int j=0; j<this.getColonne(); j++){
+				if(this.tab[i][j] != 0) 
+					return false;
+			}
+		}
+		return true;
+	}
+	
+	public ArrayList<Integer> diviseurs(Matrice A){
+		Matrice B = new Matrice(A);
+		
+		int n = A.getLigne();
+		int p = A.getColonne();
+		ArrayList<Integer> divs = new ArrayList<Integer>();
+		
+		if(!B.estVide()){
+			if(n==1){
+				B=B.reduction1(B);
+				divs.add(B.tab[0][0]);
+			}
+			else if(n>1){
+				if(p==1){
+					B=B.reduction2(B);
+					divs.add(B.tab[0][0]);
+				}
+				else if(p>1){
+					B=B.reduction3(B);
+					divs.add(B.tab[0][0]);
+					Matrice B2 = new Matrice(n-1,p-1);
+					for(int i = 1; i<B.getLigne(); i++){
+						for(int j = 1; j<B.getColonne(); j++){
+							B2.tab[i-1][j-1] = B.tab[i][j];
+						}
+					}
+					divs.addAll(diviseurs(B2));
+				}
+			}
+		}
+		
+		return divs;
 	}
 
 

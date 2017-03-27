@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @SuppressWarnings("unused")
 public class Main {
@@ -72,7 +74,8 @@ public class Main {
 		
 		int t[][] = {{16,12,8},{34,20,59}};
 		int t2[][] = {{24,12,40,8},{22,68,24,36},{42,38,26,31}};
-		Matrice m1 = new Matrice(t2);
+		int t3[][] = {{27,156,84,99},{11,66,42,35},{19,110,60,69},{30,178,108,100}};
+		Matrice m1 = new Matrice(t3);
 		System.out.println("Matrice");
 		m1.parcourirMatrice();
 		
@@ -93,6 +96,9 @@ public class Main {
 		m2 = m1.reduction3(m1);
 		System.out.println("Matrice réduite:");
 		m2.parcourirMatrice();
+		
+		ArrayList<Integer> divs = new ArrayList<Integer>(m1.diviseurs(m1));
+		System.out.println(Arrays.toString(divs.toArray()));
 //		
 //		/****MATRICE ID/VIDE****/
 //		Matrice m = new Matrice(m1);
